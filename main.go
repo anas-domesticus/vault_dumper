@@ -62,9 +62,9 @@ func main() {
 			} else {
 				serviceName = correctedSecret[1:len(correctedSecret)]
 			}
-				if _, ok := outMap[serviceName]; !ok {
-					outMap[serviceName] = make(map[string]string)
-				}
+			if _, ok := outMap[serviceName]; !ok {
+				outMap[serviceName] = make(map[string]string)
+			}
 			outMap[serviceName][BuildJSONKey(secretEngine, correctedSecret, keyName)] = secretVal
 		}
 	}
