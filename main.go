@@ -20,6 +20,7 @@ var secretEngine = os.Getenv("SECRETENGINE")
 var vaultToken = os.Getenv("VAULTTOKEN")
 
 func main() {
+	initialiseLogger()
 	flag.Parse()
 
 	log.Info("Starting...")
