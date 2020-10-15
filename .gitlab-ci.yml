@@ -1,0 +1,28 @@
+# Root Gitlab CI file
+
+stages:
+  - test
+  - build
+
+vault_dumper:test:
+  image:
+    name: golang
+    entrypoint:
+      - ""
+
+  stage: test
+  script:
+    - go test .
+
+vault_dumper:build:
+  image:
+    name: golang
+    entrypoint:
+      - ""
+
+  stage: build
+  script:
+    - go build -o vault_dumper .
+  artifacts:
+    paths:
+      - vault_dumper
