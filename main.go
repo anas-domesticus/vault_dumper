@@ -12,15 +12,37 @@ import (
 	"time"
 )
 
+// Env vars...
 var vaultAddr = os.Getenv("VAULTURL") + ":" + os.Getenv("VAULTPORT")
-var httpClient = &http.Client{
-	Timeout: 10 * time.Second,
-}
 var secretEngine = os.Getenv("SECRETENGINE")
 var vaultToken = os.Getenv("VAULTTOKEN")
 
+var httpClient = &http.Client{
+	Timeout: 10 * time.Second,
+}
+
+func GetEnvVars() {
+	fatalError := false
+	for _, v := range []string{
+		"VAULTURL",
+		"VAULTPORT",
+		"SECRETENGINE",
+		"VAULTTOKEN",
+	} {
+		_, varPresent := os.LookupEnv(v)
+		if !(varPresent) {
+			log.Error(fmt.Sprintf("Missing APIKEY environment variable: %s", v))
+			fatalError = true
+		}
+	}
+	if fatalError == true {
+		os.Exit(1)
+	}
+}
+
 func main() {
 	initialiseLogger()
+	GetEnvVars()
 	flag.Parse()
 
 	log.Info("Starting...")
